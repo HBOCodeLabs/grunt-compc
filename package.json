@@ -15,14 +15,19 @@
   "bugs": {
     "url": "https://github.com/artema/grunt-compc/issues"
   },
-  "licenses": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/artema/grunt-compc/blob/master/LICENSE-MIT"
+    }
+  ],
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.19",
     "npm": ">= 1.2.10"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test"
   },
   "peerDependencies": {
     "flex-sdk": ">= 3.0.0"
@@ -35,6 +40,7 @@
     "flash",
     "flex",
     "actionscript",
-    "adobe"    
+    "adobe",
+	"gruntplugin"
   ]
 }
