@@ -9,9 +9,13 @@
 'use strict';
 
 module.exports = {
-	getDefaultOptions: function() {
+	getDefaultOptions: function () {
 		return {
 			
 		};
+	},
+	
+	toCommandLine: function (options) {
+		return options.toString();
 	}
 };
