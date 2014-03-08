@@ -26,7 +26,17 @@ module.exports = function(grunt) {
     // Before generating any new files, remove any previously-created files.
     clean: {
       //tests: ['tmp'],
-    }/*,
+    },
+	
+	compc: {
+        options: {
+			'include-lookup-only': true
+        },
+		src: ['test/fixtures/123'],
+		dest: '/error.swc'
+	}
+	
+	/*,
 
     // Configuration to be run (and then tested).
     compc: {
@@ -68,6 +78,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['clean', 'compc', 'nodeunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint'/*, 'test'*/]);
+  grunt.registerTask('default', ['jshint', 'compc'/*, 'test'*/]);
 
 };
