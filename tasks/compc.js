@@ -10,43 +10,60 @@
 
 var childProcess = require('child_process');
 var flexSdk = require('flex-sdk');
+var async = require('async');
 
 var compcOptions = require('./lib/options');
 
 module.exports = function(grunt) {
-	grunt.registerMultiTask('compc', 'A Grunt task plugin to compile Flash SWC files with the `compc` component compiler from the Apache/Adobe Flex SDK.', function() {
+	grunt.registerMultiTask('compc', 'A Grunt task plugin to compile Flash SWC files with the `compc` component compiler from the Apache/Adobe Flex SDK.',             function() {
+        //--------------------------------------
+        //  I/O
+        //--------------------------------------
+        
 		var defaultOptions = compcOptions.getDefaultOptions();
-		var options = this.options(defaultOptions);		
+		var options = this.options(defaultOptions);
 		var binary = flexSdk.bin.compc;
-		
-		var worker = function(file, callback) {
-			options.output = file.dest;
-			
+
+        //--------------------------------------
+        //  Async worker
+        //--------------------------------------
+        
+		var worker = function(files, callback) {
+            if (files.dest) {
+                options['output'] = files.dest;
+            }
+
 			var commandLine = compcOptions.toCommandLine(options);
 
+            if (files.src && files.src.length > 0) {                
+                commandLine.push('-include-sources');
+                commandLine.push.apply(commandLine, files.src);
+                commandLine.push('--');
+            }
+            
 			grunt.verbose.writeln('compc path: ' + binary);
 			grunt.verbose.writeln('options: ' + commandLine);
 		
 			childProcess.execFile(binary, commandLine, function(error, stdout, stderr) {
-			
+                grunt.verbose.writeln('output: ' + stdout);
+                
 				if (error) {
-					grunt.log.error(error.toString());
-					grunt.verbose.writeln('stdout: ' + stdout);
-					grunt.verbose.writeln('stderr: ' + stderr);
-					callback(error);
-					return;
+					grunt.log.error(error.toString());					
 				}
-			
-				grunt.log.writeln('Build complete.');
+                else if (files.dest) {
+                    grunt.log.writeln('Build complete: ' + files.dest);
+                }
+                
+                callback(error);
 			});
 		};
 		
-		var callback = function (error) {
-			//...
-		};
-		
-		for (var i = 0; i < this.files.length; i++) {
-			worker(this.files[i], callback);
-		}
+        //--------------------------------------
+        //  Work queue
+        //--------------------------------------
+        
+		var queue = async.queue(worker, 1);
+        queue.drain = this.async();
+        queue.push(this.files);
 	});
 };
