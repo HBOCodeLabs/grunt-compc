@@ -5,7 +5,7 @@ var os = require('os');
 
 exports.compc = {
   setUp: function(done) {
-    this.tempDir = os.tmpdir();
+    this.tempDir = typeof os.tmpdir === 'function' ? os.tmpdir() : os.tmpDir();
     done();
   },
   test_build: function(test) {

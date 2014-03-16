@@ -11,7 +11,7 @@
 module.exports = function(grunt) {
 
   var os = require('os');
-  var tempDir = os.tmpdir();
+  var tempDir = typeof os.tmpdir === 'function' ? os.tmpdir() : os.tmpDir();
     
   // Project configuration.
   grunt.initConfig({
