@@ -10,21 +10,20 @@
 
 module.exports = function(grunt) {
 
+  var os = require('os');
+  var tempDir = os.tmpdir();
+    
   // Project configuration.
   grunt.initConfig({
     jshint: {
       all: [
         'Gruntfile.js',
-        'tasks/*.js',
-        //'<%= nodeunit.tests %>',
+        'tasks/**/*.js',
+        '<%= nodeunit.tests %>'
       ],
       options: {
         jshintrc: '.jshintrc',
       },
-    },
-
-    clean: {
-      compc: ['tmp'],
     },
 	
 	compc: {
@@ -36,21 +35,25 @@ module.exports = function(grunt) {
                 'version': undefined
             }
         },
-        set1: {
-            src: ['test/fixtures/*.as'],
-            dest: './tmp/result.swc',
+        test_build: {
+            src: ['test/Test1.as'],
+            dest: tempDir + '/test_build.swc',
             options: {
-                'source-path': ['test/fixtures'] 
-            }
-        },
-        set2: {
-            dest: './tmp/result.swc',
-            options: {
-                'source-path': ['test/fixtures'],
-                'include-classes': ['Test1', 'Test2']
+                'source-path': ['test'] 
             }
         }
-	}
+	},
+
+    clean: {
+        options: {
+            force: true  
+        },
+        tests: [tempDir + '/**/*.swc'],
+    },
+                   
+    nodeunit: {
+        tests: ['test/**/*_test.js']
+    }
   });
 
   // Actually load this plugin's task(s).
@@ -63,9 +66,8 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'compc', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'compc', 'nodeunit', 'clean']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'compc:default'/*, 'test'*/]);
-
+  grunt.registerTask('default', ['jshint', 'test']);
 };
