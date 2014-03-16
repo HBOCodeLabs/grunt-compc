@@ -1,7 +1,7 @@
 {
   "name": "grunt-compc",
   "description": "A Grunt task plugin to compile Flash SWC files with the `compc` component compiler from the Apache/Adobe Flex SDK.",
-  "version": "0.0.0",
+  "version": "0.9.0",
   "homepage": "https://github.com/artema/grunt-compc",
   "author": {
     "name": "Artem Abashev",
@@ -27,7 +27,7 @@
     "npm": ">= 1.2.10"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt travis --verbose"
   },
   "dependencies": {
     "async": "~0.2.10"
