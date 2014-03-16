@@ -29,17 +29,18 @@
   "scripts": {
     "test": "grunt test"
   },
-  "peerDependencies": {
-    "flex-sdk": ">= 3.0.0",
+  "dependencies": {
     "async": "~0.2.10"
+  },
+  "peerDependencies": {
+    "flex-sdk": ">= 3.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.6.2",
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-clean": "~0.5.0",
-    "flex-sdk": ">= 3.0.0",
-    "async": "~0.2.10"
+    "flex-sdk": ">= 3.0.0"
   },
   "keywords": [
     "flash",
