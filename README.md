@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/artema/grunt-compc.png)](https://travis-ci.org/artema/grunt-compc)
+
 # grunt-compc
 
 >A Grunt task plugin to compile Flash SWC files with the `compc` component compiler from the Apache/Adobe Flex SDK.
@@ -56,29 +58,31 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  compc: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  compc: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+	compc: {
+		//Default compc options can be defined here.
+		options: {
+			'warnings': false
+		},
+		build: {
+			//Files to pass with -include-sources.
+			//Can be ommited and replaced with 'include-classes' option.
+			src: ['src/**/*.as', 'src/**/*.mxml'], 
+			
+			//-output value
+			dest: 'bin/build.swc',
+			
+			//All options will be passed as-is and decorated with a leading dash (-).
+			//Array values will be passed as separate arguments and should be used for
+			//any unsafe values such as file system paths.
+			options: {
+				'source-path': ['src'],
+				
+				//Inline options can be declared this way:
+				'load-config+=cfg.xml': undefined
+				'define=CONFIG::debugging,true': undefined 
+			}
+		}
+	}
 });
 ```
 
@@ -86,4 +90,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+ - 0.9.0: Initial release on 2014-03-16.
