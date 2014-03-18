@@ -27,6 +27,7 @@ grunt.initConfig({
 		//Default compc options can be defined here.
 		options: {
 			'warnings': false
+            //'force': true //Set to true to supress errors
 		},
 		build: {
 			//Files to pass with -include-sources.

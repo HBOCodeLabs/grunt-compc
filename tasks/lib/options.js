@@ -17,6 +17,10 @@ module.exports = {
 	toCommandLine: function (options) {
 		return Object.keys(options)
             .reduce(function (res, key) {
+                if (key === 'force') {
+                    return res;
+                }
+                
                 var value = options[key];
                 
                 if (value !== undefined) {

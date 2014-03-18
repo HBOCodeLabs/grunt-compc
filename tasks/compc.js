@@ -48,7 +48,11 @@ module.exports = function(grunt) {
                 grunt.verbose.writeln('output: ' + stdout);
                 
 				if (error) {
-					grunt.log.error(error.toString());					
+					grunt.log.error(error.toString());
+                    
+                    if (options.force !== true) {
+                        grunt.fail.warn('Compc task has failed.');
+                    }                    
 				}
                 else if (files.dest) {
                     grunt.log.writeln('Build complete: ' + files.dest);
