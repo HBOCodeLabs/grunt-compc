@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
   var os = require('os');
   var tempDir = typeof os.tmpdir === 'function' ? os.tmpdir() : os.tmpDir();
-    
+
   // Project configuration.
   grunt.initConfig({
     jshint: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc',
       },
     },
-	
+
 	compc: {
         options: {
         },
@@ -39,18 +39,18 @@ module.exports = function(grunt) {
             src: ['test/Test1.as'],
             dest: tempDir + '/test_build.swc',
             options: {
-                'source-path': ['test'] 
+                'source-path': ['test']
             }
         }
 	},
 
     clean: {
         options: {
-            force: true  
+            force: true
         },
         tests: [tempDir + '/**/*.swc'],
     },
-                   
+
     nodeunit: {
         tests: ['test/**/*_test.js']
     }

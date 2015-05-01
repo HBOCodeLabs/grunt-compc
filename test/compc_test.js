@@ -14,7 +14,7 @@ exports.compc = {
     var result = grunt.file.exists(this.tempDir + '/test_build.swc');
 
     test.strictEqual(result, true, 'compiled library should exist');
-      
+
     test.done();
   }
 };

@@ -32,20 +32,20 @@ grunt.initConfig({
 		build: {
 			//Files to pass with -include-sources.
 			//Can be ommited and replaced with 'include-classes' option.
-			src: ['src/**/*.as', 'src/**/*.mxml'], 
-			
+			src: ['src/**/*.as', 'src/**/*.mxml'],
+
 			//-output value
 			dest: 'bin/build.swc',
-			
+
 			//All options will be passed as-is and decorated with a leading dash (-).
 			//Array values will be passed as separate arguments and should be used for
 			//any unsafe values such as file system paths.
 			options: {
 				'source-path': ['src'],
-				
+
 				//Inline options can be declared this way:
 				'load-config+=cfg.xml': undefined
-				'define=CONFIG::debugging,true': undefined 
+				'define=CONFIG::debugging,true': undefined
 			}
 		}
 	}
