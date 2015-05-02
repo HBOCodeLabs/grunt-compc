@@ -9,15 +9,17 @@
 'use strict';
 
 module.exports = {
-	getDefaultOptions: function () {
-		return {
-		};
-	},
+    getDefaultOptions: function () {
+        return {
+        };
+    },
 
-	toCommandLine: function (options) {
-		return Object.keys(options)
+    toCommandLine: function (options) {
+        return Object.keys(options)
             .reduce(function (res, key) {
-                if (key === 'force') {
+                if (key === 'force' || key === 'useIncludeClasses' ||
+                    key === 'externalLibraryPaths' || key === 'defines' ||
+                    key === 'flexPath') {
                     return res;
                 }
 
@@ -45,5 +47,5 @@ module.exports = {
 
                 return res;
             }, []);
-	}
+    }
 };
