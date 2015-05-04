@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         },
         test_build: {
           src: ['test/Test1.as'],
-          dest: tempDir + '/test_build.swc',
+          dest: 'tmp/test_build.swc',
           options: {
             'source-path': ['test']
           }
