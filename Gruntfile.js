@@ -2,7 +2,7 @@
  * grunt-compc
  * https://github.com/artema/grunt-compc
  *
- * Copyright (c) 2014 Artem Abashev
+ * Copyright (c) 2015 Artem Abashev, contributors
  * Licensed under the MIT license.
  */
 
