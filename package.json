@@ -43,13 +43,15 @@
     "flex-sdk": ">= 4.6.0-0"
   },
   "keywords": [
-    "compc",
-    "flash",
-    "flex",
-    "compiler",
-    "actionscript",
-    "adobe",
-    "apache",
     "gruntplugin",
+    "apache",
+    "adobe",
+    "flex sdk",
+    "open source",
+    "compiler",
+    "flex",
+    "compc",
+    "actionscript",
+    "flash"
   ]
 }
