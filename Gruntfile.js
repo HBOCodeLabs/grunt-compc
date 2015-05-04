@@ -10,11 +10,9 @@
 
 module.exports = function(grunt) {
 
-  var os = require('os');
-  var tempDir = typeof os.tmpdir === 'function' ? os.tmpdir() : os.tmpDir();
-
   // Project configuration.
   grunt.initConfig({
+
     jshint: {
       all: [
         'Gruntfile.js',
@@ -26,34 +24,35 @@ module.exports = function(grunt) {
       },
     },
 
-	compc: {
-        options: {
-        },
-        default: {
-            src: [],
-            options: {
-                'version': undefined
-            }
-        },
-        test_build: {
-            src: ['test/Test1.as'],
-            dest: tempDir + '/test_build.swc',
-            options: {
-                'source-path': ['test']
-            }
-        }
-	},
-
+    // Before generating any new files, remove any previously-created files.
     clean: {
-        options: {
-            force: true
-        },
-        tests: [tempDir + '/**/*.swc'],
+        tests: ['tmp'],
     },
 
+    // Configuration to be run (and then tested).
+    compc: {
+      options: {
+      },
+      default: {
+        src: [],
+          options: {
+            'version': undefined
+          }
+        },
+        test_build: {
+          src: ['test/Test1.as'],
+          dest: tempDir + '/test_build.swc',
+          options: {
+            'source-path': ['test']
+          }
+      }
+    },
+
+    // Unit tests.
     nodeunit: {
         tests: ['test/**/*_test.js']
     }
+
   });
 
   // Actually load this plugin's task(s).
@@ -71,4 +70,5 @@ module.exports = function(grunt) {
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
   grunt.registerTask('travis', ['jshint', 'test']);
+
 };
