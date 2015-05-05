@@ -9,7 +9,7 @@
 'use strict';
 
 var childProcess = require('child_process');
-var flexSdk = require('flex-sdk');
+var flexSdk = require('@dpwolfe/flex-sdk');
 var async = require('async');
 var path = require('path');
 
