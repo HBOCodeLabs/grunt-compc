@@ -10,6 +10,7 @@
 
 var path = require("path");
 var fs = require("fs");
+var mkdirp = require("mkdirp");
 var classNameKeyword = "#className#";
 var componentTemplate = "<component class=\"" + classNameKeyword + "\"/>";
 var componentsKeyword = "#components#";
@@ -27,7 +28,7 @@ function fileToClass(sourcePath, file) {
 module.exports = {
     fromFiles: function (options, files) {
         var classNames = [];
-        files.src.forEach(function (file) {
+        files.forEach(function (file) {
             classNames.push(fileToClass(options["source-path"], file));
         });
 
@@ -38,8 +39,10 @@ module.exports = {
         });
 
         var manifest = manifestTemplate.replace(componentsKeyword, components.join(""));
-        var manifestPath = path.resolve('tmp', 'manifest.xml');
-        fs.writeFilesync(manifestPath, manifest);
+        var tmpDir = path.resolve('tmp');
+        mkdirp.sync(tmpDir);
+        var manifestPath = path.resolve(tmpDir, 'manifest.xml');
+        fs.writeFileSync(manifestPath, manifest);
 
         return manifestPath;
     }

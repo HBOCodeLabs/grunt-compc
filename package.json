@@ -20,12 +20,13 @@
   "scripts": {
     "test": "grunt travis --verbose"
   },
-  "engines" : {
-    "node" : "^0.12.2",
-    "npm" : "^2.7.4"
+  "engines": {
+    "node": "^0.12.2",
+    "npm": "^2.7.4"
   },
   "dependencies": {
-    "async": "^0.9.0"
+    "async": "^0.9.0",
+    "mkdirp": "^0.5.0"
   },
   "peerDependencies": {
     "@dpwolfe/flex-sdk": "^4.14.1-4"
