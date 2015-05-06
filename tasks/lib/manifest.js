@@ -26,10 +26,10 @@ function fileToClass(sourcePath, file) {
 }
 
 module.exports = {
-    fromFiles: function (options, files) {
+    fromFiles: function (sourcePath, files) {
         var classNames = [];
         files.forEach(function (file) {
-            classNames.push(fileToClass(options["source-path"], file));
+            classNames.push(fileToClass(sourcePath, file));
         });
 
         var components = [];

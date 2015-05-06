@@ -43,7 +43,7 @@ module.exports = function(grunt) {
           src: ['test/Test1.as'],
           dest: 'tmp/test_build.swc',
           options: {
-            'source-path': ['test']
+            sourcePath: ['test']
           }
       }
     },

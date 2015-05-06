@@ -38,6 +38,10 @@ module.exports = function(grunt) {
 
             var commandLine = compcOptions.toCommandLine(options);
 
+            if (options.sourcePath) {
+                commandLine.push('-source-path=' + options.sourcePath);
+            }
+
             if (options.flexPath) {
                 commandLine.push('-compiler.library-path=' + options.flexPath);
             }
@@ -62,9 +66,11 @@ module.exports = function(grunt) {
                 if (options.useIncludeClasses) {
                     commandLine.push('-namespace');
                     commandLine.push(options.namespace);
-                    var manifestPath = compcManifest.fromFiles(options, files.src);
+                    var manifestPath = compcManifest.fromFiles(options.sourcePath, files.src);
                     grunt.verbose.writeln("created manifest: " + manifestPath);
                     commandLine.push(manifestPath);
+                    commandLine.push('-include-namespaces');
+                    commandLine.push(options.namespace);
                 } else {
                     commandLine.push('-include-sources');
                     commandLine.push.apply(commandLine, files.src);
