@@ -14,7 +14,7 @@ var async = require('async');
 var path = require('path');
 
 var compcOptions = require('./lib/options');
-var compcManifest = require('./lib/manifest');
+var compcFlexConfig = require('./lib/flexConfig');
 
 module.exports = function(grunt) {
     grunt.registerMultiTask('compc', 'A Grunt task plugin to compile Flash SWC files with the `compc` component ' +
@@ -64,13 +64,9 @@ module.exports = function(grunt) {
 
             if (files.src && files.src.length > 0) {
                 if (options.useIncludeClasses) {
-                    commandLine.push('-namespace');
-                    commandLine.push(options.namespace);
-                    var manifestPath = compcManifest.fromFiles(options.sourcePath, files.src);
-                    grunt.verbose.writeln("created manifest: " + manifestPath);
-                    commandLine.push(manifestPath);
-                    commandLine.push('-include-namespaces');
-                    commandLine.push(options.namespace);
+                    var configPath = compcFlexConfig.includeClassesFromFiles(options.sourcePath, files.src);
+                    grunt.verbose.writeln("created config with include-classes: " + configPath);
+                    commandLine.push('-load-config+=' + configPath);
                 } else {
                     commandLine.push('-include-sources');
                     commandLine.push.apply(commandLine, files.src);

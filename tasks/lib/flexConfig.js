@@ -11,10 +11,10 @@
 var path = require("path");
 var fs = require("fs");
 var temp = require("temp").track();
+var classesKeyword = "#classes#";
+var configTemplate = "<flex-config><include-classes>" + classesKeyword + "</include-classes></flex-config>";
 var classNameKeyword = "#className#";
-var componentTemplate = "<component class=\"" + classNameKeyword + "\"/>";
-var componentsKeyword = "#components#";
-var manifestTemplate = "<?xml version=\"1.0\"?><componentPackage>" + componentsKeyword + "</componentPackage>";
+var classTemplate = "<class>" + classNameKeyword + "</class>";
 var sepRegExp = new RegExp("\\" + path.sep, "g");
 
 function fileToClass(sourcePath, file) {
@@ -26,22 +26,22 @@ function fileToClass(sourcePath, file) {
 }
 
 module.exports = {
-    fromFiles: function (sourcePath, files) {
+    includeClassesFromFiles: function (sourcePath, files) {
         var classNames = [];
         files.forEach(function (file) {
             classNames.push(fileToClass(sourcePath, file));
         });
 
-        var components = [];
+        var classes = [];
         classNames.forEach(function (className) {
-            var component = componentTemplate.replace(classNameKeyword, className);
-            components.push(component);
+            var classEntry = classTemplate.replace(classNameKeyword, className);
+            classes.push(classEntry);
         });
 
-        var manifest = manifestTemplate.replace(componentsKeyword, components.join(""));
-        var manifestPath = temp.openSync({ prefix: 'manifest', suffix: '.xml' });
-        fs.writeFileSync(manifestPath, manifest);
+        var config = configTemplate.replace(classesKeyword, classes.join(""));
+        var configPath = temp.openSync({ prefix: 'config.', suffix: '.xml' }).path;
+        fs.writeFileSync(configPath, config);
 
-        return manifestPath;
+        return configPath;
     }
 };
