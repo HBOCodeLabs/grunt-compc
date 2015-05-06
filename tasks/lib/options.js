@@ -19,7 +19,7 @@ module.exports = {
             .reduce(function (res, key) {
                 if (key === 'force' || key === 'useIncludeClasses' ||
                     key === 'externalLibraryPaths' || key === 'defines' ||
-                    key === 'flexPath') {
+                    key === 'flexPath' || key === 'namespace') {
                     return res;
                 }
 

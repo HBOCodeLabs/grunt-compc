@@ -14,6 +14,7 @@ var async = require('async');
 var path = require('path');
 
 var compcOptions = require('./lib/options');
+var compcManifest = require('./lib/manifest');
 
 module.exports = function(grunt) {
     grunt.registerMultiTask('compc', 'A Grunt task plugin to compile Flash SWC files with the `compc` component ' +
@@ -59,10 +60,11 @@ module.exports = function(grunt) {
 
             if (files.src && files.src.length > 0) {
                 if (options.useIncludeClasses) {
-                    commandLine.push('-include-classes');
-                    files.src.forEach(function (file) {
-                        commandLine.push(fileToClass(options["source-path"], file));
-                    });
+                    commandLine.push('-namespace');
+                    commandLine.push(options.namespace);
+                    var manifestPath = compcManifest.fromFiles(options, files.src);
+                    grunt.verbose.writeln("created manifest: " + manifestPath);
+                    commandLine.push(manifestPath);
                 } else {
                     commandLine.push('-include-sources');
                     commandLine.push.apply(commandLine, files.src);
@@ -98,13 +100,4 @@ module.exports = function(grunt) {
         queue.drain = this.async();
         queue.push(this.files);
     });
-
-    var sepRegExp = new RegExp("\\" + path.sep, "g");
-    function fileToClass(sourcePath, file) {
-        var ext = path.extname(file);
-        var className = path.relative(sourcePath, file);
-        className = className.replace(new RegExp("\\" + ext + "$", "i"), "");
-        className = className.replace(sepRegExp, ".");
-        return className;
-    }
 };
