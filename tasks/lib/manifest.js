@@ -10,7 +10,7 @@
 
 var path = require("path");
 var fs = require("fs");
-var mkdirp = require("mkdirp");
+var temp = require("temp").track();
 var classNameKeyword = "#className#";
 var componentTemplate = "<component class=\"" + classNameKeyword + "\"/>";
 var componentsKeyword = "#components#";
@@ -39,9 +39,7 @@ module.exports = {
         });
 
         var manifest = manifestTemplate.replace(componentsKeyword, components.join(""));
-        var tmpDir = path.resolve('tmp');
-        mkdirp.sync(tmpDir);
-        var manifestPath = path.resolve(tmpDir, 'manifest.xml');
+        var manifestPath = temp.openSync({ prefix: 'manifest', suffix: '.xml' });
         fs.writeFileSync(manifestPath, manifest);
 
         return manifestPath;
