@@ -1,7 +1,7 @@
 {
-  "name": "grunt-compc",
+  "name": "@dpwolfe/grunt-compc",
   "description": "A Grunt task plugin to compile Flash SWC files with the `compc` component compiler from the Apache/Adobe Flex SDK.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/artema/grunt-compc",
   "author": {
     "name": "Artem Abashev",
