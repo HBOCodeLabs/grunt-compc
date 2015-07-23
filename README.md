@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/artema/grunt-compc.png)](https://travis-ci.org/artema/grunt-compc)
+[![Build Status](https://travis-ci.org/HBOCodeLabs/grunt-compc.svg?branch=master)](https://travis-ci.org/HBOCodeLabs/grunt-compc)
 
 # grunt-compc
 
